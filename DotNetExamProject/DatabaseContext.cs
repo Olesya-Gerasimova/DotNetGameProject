@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DotNetExamProject.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotNetExamProject;
 

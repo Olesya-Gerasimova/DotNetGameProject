@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DotNetExamProject;
+namespace DotNetExamProject.Entity;
 
 public class User
 {

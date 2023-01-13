@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DotNetExamProject.Entity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetExamProject.Controllers;
 
