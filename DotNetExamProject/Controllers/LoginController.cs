@@ -19,42 +19,40 @@ public class LoginController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Login([FromBody] User login)
+    public IActionResult Login([FromBody] User credentials)
     {
-        IActionResult response = Unauthorized();
-        var user = AuthenticateUser(login);
+        var user = AuthenticateUser(credentials);
 
-        if (user is not null)
+        if (user is null)
         {
-            var tokenString = GenerateJSONWebToken(user);
-            response = Ok(new { token = tokenString });
+            return Unauthorized();
         }
 
-        return response;
+        var result = new { token = GenerateJWT(user) };
+        return Ok(result);
     }
 
-    private string GenerateJSONWebToken(User userInfo)
+    private string GenerateJWT(User userInfo)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-            _config["Jwt:Issuer"],
+        var token = new JwtSecurityToken(
+            "DotNetExamProject",
+            "DotNetExamProject",
             null,
             expires: DateTime.Now.AddMinutes(120),
-            signingCredentials: credentials);
+            signingCredentials: credentials
+        );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private User AuthenticateUser(User login)
+    private User? AuthenticateUser(User credentials)
     {
-        var user = new User();
-        if (login.Username == "user")
-        {
-            user =  new User { Username = "User", Password = "" };
-        }
-
+        var user = _context.Users.FirstOrDefault(
+            u => u.Username == credentials.Username && u.Password == PasswordHash.HashPassword(credentials.Password)
+        );
         return user;
     }
 }
