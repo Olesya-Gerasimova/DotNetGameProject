@@ -8,15 +8,16 @@ services:
     ports:
       - "80:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      DefaultConnection: Host=db;Port=5433;Database=dotNetExamDB;Username=postgres;Password=postgres,
     depends_on:
       - db
-  db: # postgres
+  db:
     image: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
-      - POSTGRES_DB=dotNetExamDB
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_DB: dotNetExamDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
