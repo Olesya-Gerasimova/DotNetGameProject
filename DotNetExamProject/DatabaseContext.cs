@@ -7,10 +7,16 @@ public class DatabaseContext : DbContext
     public DbSet<User> Users { get; set; }
     public DatabaseContext()
     {
-        Database.EnsureCreated();
+        base.Database.EnsureCreated();
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("DefaultConnection"));
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasKey(u => u.Username);
     }
 }
