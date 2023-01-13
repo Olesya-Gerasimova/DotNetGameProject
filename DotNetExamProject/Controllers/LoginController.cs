@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DotNetExamProject.Controllers;
 
-[Microsoft.AspNetCore.Components.Route("api/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class LoginController : ControllerBase
 {
