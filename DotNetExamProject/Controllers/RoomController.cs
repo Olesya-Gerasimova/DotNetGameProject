@@ -54,6 +54,10 @@ public class RoomController : ControllerBase
         {
             return BadRequest("You are not in this game");
         }
+        if (game.OwnerUsername == GetUsername())
+        {
+            return BadRequest("You can't leave this game as you are the owner of this game");
+        }
         game.Players.Remove(GetUsername());
         await _context.SaveChangesAsync();
         return Ok();
