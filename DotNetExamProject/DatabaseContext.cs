@@ -4,14 +4,17 @@ namespace DotNetExamProject;
 
 public class DatabaseContext : DbContext
 {
+    private readonly IConfiguration _config;
     public DbSet<User> Users { get; set; }
-    public DatabaseContext()
+
+    public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration config) : base(options)
     {
-        base.Database.EnsureCreated();
+        _config = config;
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("DefaultConnection"));
+
+        optionsBuilder.UseNpgsql(_config.GetConnectionString("DefaultConnection"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
