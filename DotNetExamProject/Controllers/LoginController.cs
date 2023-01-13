@@ -22,16 +22,21 @@ public class LoginController : ControllerBase
     [HttpPost]
     public IActionResult Login([FromBody] User credentials)
     {
-        if (credentials.Username is null || credentials.Password is null)
+        if (
+            credentials.Username is null ||
+            credentials.Password is null ||
+            credentials.Username is "" ||
+            credentials.Password is ""
+            )
         {
             return BadRequest("Username or password is missing");
         }
-        
+
         var user = AuthenticateUser(credentials);
 
         if (user is null)
         {
-            return Unauthorized();
+            return Unauthorized(new { message = "Invalid username or password" });
         }
 
         var result = new { token = GenerateJWT(user) };
