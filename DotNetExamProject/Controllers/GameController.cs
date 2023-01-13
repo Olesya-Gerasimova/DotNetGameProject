@@ -34,7 +34,6 @@ public class GameController : ControllerBase
         return games;
     }
     
-    // get game by id
     [HttpGet("{id}")]
     public async Task<ActionResult<Game>> GetGame(int id)
     {

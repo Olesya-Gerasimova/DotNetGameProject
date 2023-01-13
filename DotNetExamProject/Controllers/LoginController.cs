@@ -66,7 +66,7 @@ public class LoginController : ControllerBase
     private User? AuthenticateUser(User credentials)
     {
         var user = _context.Users.FirstOrDefault(
-            u => u.Username == credentials.Username && u.Password == PasswordHash.HashPassword(credentials.Password)
+            u => u.Username == credentials.Username && u.Password == UserHelper.HashPassword(credentials.Password)
         );
         return user;
     }

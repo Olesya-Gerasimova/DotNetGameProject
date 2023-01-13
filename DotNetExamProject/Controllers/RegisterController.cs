@@ -29,7 +29,7 @@ public class RegisterController : ControllerBase
         _context.Users.Add(new User()
         {
             Username = credentials.Username,
-            Password = PasswordHash.HashPassword(credentials.Password)
+            Password = UserHelper.HashPassword(credentials.Password)
         });
         _context.SaveChanges();
         var result = new { success = true };

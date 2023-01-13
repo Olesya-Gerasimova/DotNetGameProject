@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DotNetExamProject;
 
-public static class PasswordHash
+public static class UserHelper
 {
     public static string HashPassword(string password)
     {
