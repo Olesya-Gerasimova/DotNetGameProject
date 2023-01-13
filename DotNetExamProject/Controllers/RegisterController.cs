@@ -25,7 +25,11 @@ public class RegisterController : ControllerBase
         {
             return BadRequest("User already exists");
         }
-        _context.Users.Add(credentials);
+        _context.Users.Add(new User()
+        {
+            Username = credentials.Username,
+            Password = PasswordHash.HashPassword(credentials.Password)
+        });
         _context.SaveChanges();
         var result = new { success = true };
         return Ok(result);
