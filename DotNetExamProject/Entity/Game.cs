@@ -14,6 +14,6 @@ public class Game
 
 public enum GameState
 {
-    Started,
-    Open
+    Open,
+    Started
 }
