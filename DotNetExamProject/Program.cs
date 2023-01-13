@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = "DotNetExamProject",
             ValidAudience = "DotNetExamProject",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"]))
         };
     });
 
