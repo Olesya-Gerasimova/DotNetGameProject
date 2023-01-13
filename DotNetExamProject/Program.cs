@@ -37,6 +37,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
