@@ -22,6 +22,11 @@ public class LoginController : ControllerBase
     [HttpPost]
     public IActionResult Login([FromBody] User credentials)
     {
+        if (credentials.Username is null || credentials.Password is null)
+        {
+            return BadRequest("Username or password is missing");
+        }
+        
         var user = AuthenticateUser(credentials);
 
         if (user is null)
