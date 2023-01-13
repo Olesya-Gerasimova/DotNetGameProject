@@ -10,10 +10,10 @@ public class DatabaseContext : DbContext
     public DatabaseContext(DbContextOptions<DatabaseContext> options, IConfiguration config) : base(options)
     {
         _config = config;
+        base.Database.EnsureCreated();
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-
         optionsBuilder.UseNpgsql(_config.GetConnectionString("DefaultConnection"));
     }
 
