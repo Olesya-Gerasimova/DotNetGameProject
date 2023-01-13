@@ -54,7 +54,8 @@ public class GameController : ControllerBase
         {
             OwnerUsername = GetUsername(),
             CreatedOn = DateTime.Now,
-            State = GameState.Open
+            State = GameState.Open,
+            Players = new List<string>() { GetUsername() }
         };
     
         _context.Games.Add(game);
