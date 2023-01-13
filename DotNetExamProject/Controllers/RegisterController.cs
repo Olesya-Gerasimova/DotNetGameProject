@@ -12,13 +12,18 @@ public class RegisterController : ControllerBase
     {
         _context = context;
     }
-
+    
     [HttpPost]
-    public async Task<ActionResult<User>> PostUserModel(User userModel)
+    public IActionResult Register([FromBody] User credentials)
     {
-        _context.Users.Add(userModel);
-        await _context.SaveChangesAsync();
-
-        return Ok();
+        var user = _context.Users.FirstOrDefault(u => u.Username == credentials.Username);
+        if (user is not null)
+        {
+            return BadRequest();
+        }
+        _context.Users.Add(credentials);
+        _context.SaveChanges();
+        var result = new { success = true };
+        return Ok(result);
     }
 }
