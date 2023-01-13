@@ -50,7 +50,7 @@ public class LoginController : ControllerBase
 
         var token = new JwtSecurityToken(
             issuer: "DotNetExamProject",
-            audience: "DotNetExamProject",
+            audience: "User",
             claims: new List<Claim>
             {
                 new Claim("Username", user.Username!)
