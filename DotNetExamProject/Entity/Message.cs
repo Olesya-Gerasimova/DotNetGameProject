@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotNetExamProject.Entity;
 
+[PrimaryKey(nameof(MessageId))]
 public class Message
 {
     [Key]
