@@ -8,8 +8,8 @@ public class Game
     public int Id { get; set; }
     public string? OwnerUsername { get; set; }
     public DateTime CreatedOn { get; set; }
-    // game state started | open
     public GameState State { get; set; }
+    public List<string> Players { get; set; }
 }
 
 public enum GameState
