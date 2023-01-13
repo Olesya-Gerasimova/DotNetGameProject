@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -32,15 +33,18 @@ public class LoginController : ControllerBase
         return Ok(result);
     }
 
-    private string GenerateJWT(User userInfo)
+    private string GenerateJWT(User user)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]!));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            "DotNetExamProject",
-            "DotNetExamProject",
-            null,
+            issuer: "DotNetExamProject",
+            audience: "DotNetExamProject",
+            claims: new List<Claim>
+            {
+                new Claim("Username", user.Username!)
+            },
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials
         );
